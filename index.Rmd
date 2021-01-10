@@ -1,0 +1,193 @@
+---
+title: "Número de óbitos de Salvador por sexo biológico:"
+output: 
+  flexdashboard::flex_dashboard:
+ #   logo: figure/reconhecendosalvador.gif
+    css: style.css
+    theme: cosmo
+#    social: menu
+    orientation: columns
+    vertical_layout: fill
+#    source_code: embed
+---
+
+
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(ggplot2)
+library("readr")
+library("dplyr")
+library("tidyr")
+library(ggthemes)
+library(extrafont)
+library(gganimate)
+library(ggplotlyExtra)
+library(plotly)
+library(ggplotify)
+
+
+library(echarts4r) # charts
+library(tidyverse) # general use
+library(lubridate) # dates and times
+library(prophet) # forecasting
+library(scales)
+
+# Biblioteca para carregamento automatico de dados 
+library(readr)
+saude_v00 <- read_delim("data/A101911177_180_116_165.csv",";", escape_double = FALSE, locale = locale(encoding = "ISO-8859-1"),trim_ws = TRUE)
+  
+# Contrucao de graficos
+
+library(dplyr)
+library(ggplot2)
+library(gridExtra)
+library(rlang)   # !!sym()
+
+```
+
+Os dados apresentados na forma gráfica a seguir foram obtidos do sítio "http://www.tabnet.saude.salvador.ba.gov.br/" .
+
+Feminino
+================================
+### <font size="5"> **Ocorrência anual de óbitos em Salvador** </font>
+ 
+
+```{r,eval=TRUE}
+
+	objeto <- saude_v00 %>% 
+  ggplot(aes(x=`ano do óbito`,y=Fem)) +
+  geom_line(fill="#6cbfd3",color="#fac113",size=2) +
+  labs(
+    title = "",
+    x = "Ano",
+    y = "Nº"
+  ) +
+  theme(title = element_text(size = 12,colour = "#db4470"))+
+  theme(axis.title.x=element_text(size=11)) +
+  theme(axis.title.y=element_text(size=11)) +
+  theme(legend.text=element_text(size =11)) +
+  theme(axis.text=element_text(size =11))  +
+  theme(legend.position = "none")+
+  theme(panel.grid = element_blank(), axis.ticks.y = element_line())+
+#  theme( axis.line = element_line(colour = "darkblue",
+#                      size = 1, linetype = "solid"))+
+  theme(panel.border = element_rect(fill=NA, color = "#64D2AA", size = 2))+
+  theme(panel.background = element_rect(fill=NA,color = "gray70", size = 2),
+        panel.grid.major = element_line(color = "gray70", size = .95),
+        panel.grid.minor = element_line(color = "gray70", size = .25))
+#+
+  #scale_x_continuous(breaks = seq(2009, 2018, by = 1))+
+#  theme(axis.text.x = element_text(angle = 25, vjust = 1.0, hjust #= 1.0))+scale_x_date(breaks = "6 month", minor_breaks = "1 #month",labels=date_format("%b %Y"))
+
+ggplotly(objeto)
+
+```
+
+Masculino
+================================
+### <font size="5"> **Ocorrência anual de óbitos em Salvador** </font>
+ 
+
+```{r,eval=TRUE}
+
+	objeto <- saude_v00 %>% 
+  ggplot(aes(x=`ano do óbito`,y=Mas)) +
+  geom_line(fill="#6cbfd3",color="#fac113",size=2) +
+  labs(
+    title = "",
+    x = "Ano",
+    y = "Nº"
+  ) +
+  theme(title = element_text(size = 12,colour = "#db4470"))+
+  theme(axis.title.x=element_text(size=11)) +
+  theme(axis.title.y=element_text(size=11)) +
+  theme(legend.text=element_text(size =11)) +
+  theme(axis.text=element_text(size =11))  +
+  theme(legend.position = "none")+
+  theme(panel.grid = element_blank(), axis.ticks.y = element_line())+
+#  theme( axis.line = element_line(colour = "darkblue",
+#                      size = 1, linetype = "solid"))+
+  theme(panel.border = element_rect(fill=NA, color = "#64D2AA", size = 2))+
+  theme(panel.background = element_rect(fill=NA,color = "gray70", size = 2),
+        panel.grid.major = element_line(color = "gray70", size = .95),
+        panel.grid.minor = element_line(color = "gray70", size = .25))
+#+
+  #scale_x_continuous(breaks = seq(2009, 2018, by = 1))+
+#  theme(axis.text.x = element_text(angle = 25, vjust = 1.0, hjust #= 1.0))+scale_x_date(breaks = "6 month", minor_breaks = "1 #month",labels=date_format("%b %Y"))
+
+ggplotly(objeto)
+
+```
+
+Ignorado
+================================
+### <font size="5"> **Ocorrência anual de óbitos em Salvador** </font>
+ 
+
+```{r,eval=TRUE}
+
+	objeto <- saude_v00 %>% 
+  ggplot(aes(x=`ano do óbito`,y=Ign)) +
+  geom_line(fill="#6cbfd3",color="#fac113",size=2) +
+  labs(
+    title = "",
+    x = "Ano",
+    y = "Nº"
+  ) +
+  theme(title = element_text(size = 12,colour = "#db4470"))+
+  theme(axis.title.x=element_text(size=11)) +
+  theme(axis.title.y=element_text(size=11)) +
+  theme(legend.text=element_text(size =11)) +
+  theme(axis.text=element_text(size =11))  +
+  theme(legend.position = "none")+
+  theme(panel.grid = element_blank(), axis.ticks.y = element_line())+
+#  theme( axis.line = element_line(colour = "darkblue",
+#                      size = 1, linetype = "solid"))+
+  theme(panel.border = element_rect(fill=NA, color = "#64D2AA", size = 2))+
+  theme(panel.background = element_rect(fill=NA,color = "gray70", size = 2),
+        panel.grid.major = element_line(color = "gray70", size = .95),
+        panel.grid.minor = element_line(color = "gray70", size = .25))
+#+
+  #scale_x_continuous(breaks = seq(2009, 2018, by = 1))+
+#  theme(axis.text.x = element_text(angle = 25, vjust = 1.0, hjust #= 1.0))+scale_x_date(breaks = "6 month", minor_breaks = "1 #month",labels=date_format("%b %Y"))
+
+ggplotly(objeto)
+
+```
+
+Total
+================================
+### <font size="5"> **Ocorrência anual de óbitos em Salvador** </font>
+ 
+
+```{r,eval=TRUE}
+
+	objeto <- saude_v00 %>% 
+  ggplot(aes(x=`ano do óbito`,y=Total)) +
+  geom_line(fill="#6cbfd3",color="#fac113",size=2) +
+  labs(
+    title = "",
+    x = "Ano",
+    y = "Nº"
+  ) +
+  theme(title = element_text(size = 12,colour = "#db4470"))+
+  theme(axis.title.x=element_text(size=11)) +
+  theme(axis.title.y=element_text(size=11)) +
+  theme(legend.text=element_text(size =11)) +
+  theme(axis.text=element_text(size =11))  +
+  theme(legend.position = "none")+
+  theme(panel.grid = element_blank(), axis.ticks.y = element_line())+
+#  theme( axis.line = element_line(colour = "darkblue",
+#                      size = 1, linetype = "solid"))+
+  theme(panel.border = element_rect(fill=NA, color = "#64D2AA", size = 2))+
+  theme(panel.background = element_rect(fill=NA,color = "gray70", size = 2),
+        panel.grid.major = element_line(color = "gray70", size = .95),
+        panel.grid.minor = element_line(color = "gray70", size = .25))
+#+
+  #scale_x_continuous(breaks = seq(2009, 2018, by = 1))+
+#  theme(axis.text.x = element_text(angle = 25, vjust = 1.0, hjust #= 1.0))+scale_x_date(breaks = "6 month", minor_breaks = "1 #month",labels=date_format("%b %Y"))
+
+ggplotly(objeto)
+
+```
